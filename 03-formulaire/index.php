@@ -40,8 +40,33 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+    
+        var form = $('form');
+
+        form.on('submit', function (event) {
+            // On n'exécute pas la requête POST directement
+            event.preventDefault();
+
+            var formData = form.serialize(); // On récupère les données du formulaire
+
+            // On exécute la requête POST via AJAX
+            $.ajax({
+                type: 'POST',
+                url: form.attr('action'),
+                data: formData,
+                // On peut forcer le contenu en JSON si le serveur
+                // ne renvoie pas la bonne en-tête
+                // dataType: 'json'
+            }).done(function (response) {
+                console.log(response);
+            });
+        });
+    
+    </script>
   </body>
 </html>

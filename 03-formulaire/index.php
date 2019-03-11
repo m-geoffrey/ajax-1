@@ -38,6 +38,8 @@
         </div>
     </div>
 
+    <h1></h1>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -62,8 +64,17 @@
                 // On peut forcer le contenu en JSON si le serveur
                 // ne renvoie pas la bonne en-tête
                 // dataType: 'json'
+                beforeSend: function () {
+                    $('h1').html('Chargement en cours...');
+                },
             }).done(function (response) {
-                console.log(response);
+                if (response.success) {
+                    $('h1').html(response.success);
+                }
+                
+                if (response.errors) {
+                    console.log(response.errors);
+                }
             });
         });
     

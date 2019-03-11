@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Mon site</h1>
-    <button>Changer la phrase</button>
+    <button id="button">Changer la phrase</button>
 
     <script>
         // On instancie le moteur AJAX
@@ -34,6 +34,11 @@
          * pour récupérer une nouvelle phrase et modifier le contenu du h1.
          */
 
+        var button = document.getElementById('button');
+        button.addEventListener('click', function () {
+            xhr.open('GET', './worker.php');
+            xhr.send();
+        });
 
     </script>
 </body>

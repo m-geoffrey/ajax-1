@@ -17,3 +17,26 @@ $db = new PDO('mysql:host=mysql.docker;dbname=smartphone;charset=utf8', 'root', 
  *
  * A chaque exécution du fichier, on pourra TRUNCATE la table pour éviter les doublons.
  */
+
+$smartphones = [
+    ['brand' => 'Apple', 'model' => 'iPhone XS', 'price' => 899],
+    ['brand' => 'Apple', 'model' => 'iPhone XR', 'price' => 999],
+    ['brand' => 'Apple', 'model' => 'iPhone X', 'price' => 1199],
+    ['brand' => 'Apple', 'model' => 'iPhone 8', 'price' => 799],
+    ['brand' => 'Samsung', 'model' => 'Galaxy S10', 'price' => 999],
+    ['brand' => 'Samsung', 'model' => 'Galaxy S9', 'price' => 599]
+];
+
+// On reset la table
+$db->query('TRUNCATE TABLE smartphone');
+
+// On prépare la requête
+$query = $db->prepare('INSERT INTO `smartphone` (brand, model, price) VALUES (:brand, :model, :price)');
+
+// On exécute 6 requêtes
+foreach ($smartphones as $smartphone) {
+    $query->bindValue(':brand', $smartphone['brand']);
+    $query->bindValue(':model', $smartphone['model']);
+    $query->bindValue(':price', $smartphone['price']);
+    $query->execute();
+}

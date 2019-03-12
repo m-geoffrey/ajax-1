@@ -14,6 +14,8 @@
         <div class="row" id="cars">
             Chargement en cours...
         </div>
+
+        <div id="selected-car"></div>
     </div>
 
     <!-- Optional JavaScript -->
@@ -34,7 +36,7 @@
                     <img class="card-img-top" src="./img/`+car.image+`" alt="`+car.brand+`">
                     <div class="card-body">
                         <h5 class="card-title">`+car.brand+` `+car.model+`</h5>
-                        <a href="#" class="btn btn-primary">Voir la voiture</a>
+                        <a data-car="`+car.id+`" href="#" class="btn btn-primary">Voir la voiture</a>
                     </div>
                 </div>`);
             
@@ -43,13 +45,16 @@
         });
 
         // On écoute le clic sur un élément qui est chargé en AJAX
-        $('body').on('click', '.card a', function () {
+        $('body').on('click', '.card a', function (event) {
+            event.preventDefault(); // Bloque la redirection du lien
             console.log('test');
-            $.get('./cars.php?id=1').done(function (car) {
+            var id = $(this).attr('data-car'); // id de la voiture cliquée
+            $.get('./cars.php?id='+id).done(function (car) {
                 console.log(car);
+                $('#selected-car').html(car.brand + ' ' + car.model + ' ' + car.price + '&euro;' + '<img width="500" src="./img/'+car.image+'">');
             });
         });
-    
+
     </script>
   </body>
 </html>

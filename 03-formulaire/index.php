@@ -39,6 +39,7 @@
     </div>
 
     <h1></h1>
+    <ul id="success"></ul>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -67,9 +68,13 @@
                 beforeSend: function () {
                     $('h1').html('Chargement en cours...');
                 },
+                complete: function () {
+                    $('h1').html('');
+                }
             }).done(function (response) {
                 if (response.success) {
-                    $('h1').html(response.success);
+                    var message = response.success;
+                    $('#success').append($('<li>'+message.name+' : '+message.message+'</li>'));
                 }
                 
                 if (response.errors) {

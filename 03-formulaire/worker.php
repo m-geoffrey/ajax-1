@@ -1,6 +1,6 @@
 <?php
 
-// sleep(3);
+sleep(1);
 
 header('Content-Type: application/json');
 
@@ -27,7 +27,10 @@ if ('POST' === $_SERVER['REQUEST_METHOD']) {
 
     // On vérifie si le formulaire contient des erreurs
     if (empty($errors)) {
-        echo json_encode(['success' => 'Succès']);
+        echo json_encode(['success' => [
+            'name' => $name,
+            'message' => $message
+        ]]);
     } else {
         echo json_encode(['errors' => $errors]);
     }
